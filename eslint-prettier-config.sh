@@ -134,7 +134,8 @@ else
   "extends": [
     "airbnb",
     "prettier",
-    "plugin:node/recommended"
+    "plugin:node/recommended",
+    "plugin:react/recommended"
   ],
   "plugins": ["prettier"],
   "env": {
