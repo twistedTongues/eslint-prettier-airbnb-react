@@ -133,9 +133,9 @@ else
   echo ${config_opening}'
   "extends": [
     "airbnb",
-    "plugin:prettier/recommended",
-    "prettier/react"
+    "prettier"
   ],
+  "plugins": ["prettier"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -145,6 +145,13 @@ else
   },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
+    "no-console": "off",
+    "func-names": "off",
+    "no-process-exit": "off",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off",
+    "prettier/prettier": "error",
+    "no-unused-vars": "warn",
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "max-len": [
       "warn",
