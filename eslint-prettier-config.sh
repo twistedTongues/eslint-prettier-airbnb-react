@@ -75,6 +75,16 @@ select trailing_comma_pref in "none" "es5" "all"; do
 done
 echo
 
+# Arrow Function Parentheses
+echo "Include parentheses around a sole arrow function parameter.?"
+select arrow_func_par in "always" "avoid"; do
+  case $arrow_func_par in
+    always ) break;;
+    avoid ) break;;
+  esac
+done
+echo
+
 # Checks for existing prettierrc files
 if [ -f ".prettierrc.js" -o -f "prettier.config.js" -o -f ".prettierrc.yaml" -o -f ".prettierrc.yml" -o -f ".prettierrc.json" -o -f ".prettierrc.toml" -o -f ".prettierrc" ]; then
   echo -e "${RED}Existing Prettier config file(s) found${NC}"
@@ -164,7 +174,8 @@ else
   echo ${config_opening}'
   "printWidth": '${max_len_val}',
   "singleQuote": true,
-  "trailingComma": "'${trailing_comma_pref}'"
+  "trailingComma": "'${trailing_comma_pref}'",
+  "arrowParens": "'${arrow_func_par}'",
 }' >> .prettierrc${config_extension}
 fi
 
