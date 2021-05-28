@@ -76,7 +76,7 @@ done
 echo
 
 # Arrow Function Parentheses
-echo "Include parentheses around a sole arrow function parameter.?"
+echo "Include parentheses around a sole arrow function parameter?"
 select arrow_func_par in "always" "avoid"; do
   case $arrow_func_par in
     always ) break;;
@@ -114,7 +114,7 @@ $pkg_cmd -D eslint prettier
 echo
 echo -e "2/5 ${YELLOW}Conforming to Airbnb's JavaScript Style Guide... ${NC}"
 echo
-$pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react babel-eslint
+$pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react babel-eslint eslint-plugin-node eslint-config-node
 
 echo
 echo -e "3/5 ${LCYAN}Making ESlint and Prettier play nice with each other... ${NC}"
@@ -133,7 +133,8 @@ else
   echo ${config_opening}'
   "extends": [
     "airbnb",
-    "prettier"
+    "prettier",
+    "plugin:node/recommended"
   ],
   "plugins": ["prettier"],
   "env": {
@@ -152,6 +153,7 @@ else
     "class-methods-use-this": "off",
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
+    "spaced-comment": "warn",
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "max-len": [
       "warn",
@@ -182,7 +184,7 @@ else
   "printWidth": '${max_len_val}',
   "singleQuote": true,
   "trailingComma": "'${trailing_comma_pref}'",
-  "arrowParens": "'${arrow_func_par}'",
+  "arrowParens": "'${arrow_func_par}'"
 }' >> .prettierrc${config_extension}
 fi
 
