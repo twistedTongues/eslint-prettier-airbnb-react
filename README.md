@@ -3,7 +3,7 @@
 1. Navigate to your app directory where you want to include this style configuration.
 
    ```bash
-   cd my-app
+   yarn init -y
    ```
 
 2. Run this command inside your app's root directory. Note: this command executes the `eslint-prettier-config.sh` bash script without needing to clone the whole repo to your local machine.
@@ -38,6 +38,8 @@
 5. [babel-eslint](https://github.com/babel/babel-eslint)
    - A wrapper for Babel's parser used for ESLint.
    - We decided to include this since [Airbnb Style Guide uses Babel](https://github.com/airbnb/javascript#airbnb-javascript-style-guide-).
+6. [eslint-config-node](https://www.npmjs.com/package/eslint-config-node)
+7. [eslint-plugin-node](https://www.npmjs.com/package/eslint-plugin-node)
 
 ### ESlint, Prettier Integration
 
