@@ -147,14 +147,18 @@ else
   },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
+    /// My rules
     "no-console": "off",
     "func-names": "off",
+    ///Node
     "no-process-exit": "off",
-    "object-shorthand": "off",
+    ///
+    "object-shorthand": "warn",
     "class-methods-use-this": "off",
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "spaced-comment": "warn",
+    ///
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "max-len": [
       "warn",
