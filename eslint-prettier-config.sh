@@ -145,6 +145,7 @@ else
     "jest": true,
     "node": true
   },
+  "parser": "babel-eslint",
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
     /// My rules
