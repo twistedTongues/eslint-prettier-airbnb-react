@@ -134,7 +134,7 @@ else
   "extends": [
     "airbnb",
     "prettier",
-    "plugin:node/recommended",
+    // "plugin:node/recommended",
     "plugin:react/recommended"
   ],
   "plugins": ["prettier"],
@@ -146,13 +146,16 @@ else
     "node": true
   },
   "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
     /// My rules
     "no-console": "off",
     "func-names": "off",
     ///Node
-    "no-process-exit": "off",
+      // "no-process-exit": "off",
     ///
     "object-shorthand": "warn",
     "class-methods-use-this": "off",
