@@ -137,7 +137,7 @@ else
     // "plugin:node/recommended",
     "plugin:react/recommended"
   ],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -147,7 +147,11 @@ else
   },
   "parser": "babel-eslint",
   "parserOptions": {
-    "sourceType": "module"
+     "ecmaFeatures": {
+         "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
   },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
