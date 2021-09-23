@@ -135,12 +135,11 @@ else
     "airbnb",
     "plugin:jsx-a11y/recommended",
     "prettier",
-    "prettier/react",
     // "plugin:node/recommended",
     "react-app",
     "plugin:react/recommended"
   ],
-  "plugins": ["prettier", "jsx-a11y"],
+  "plugins": ["prettier", "jsx-a11y", "react"],
   "env": {
     "browser": true,
     "commonjs": true,
