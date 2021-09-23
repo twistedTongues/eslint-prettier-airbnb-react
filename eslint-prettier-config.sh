@@ -133,11 +133,14 @@ else
   echo ${config_opening}'
   "extends": [
     "airbnb",
+    "plugin:jsx-a11y/recommended",
     "prettier",
+    "prettier/react",
     // "plugin:node/recommended",
+    "react-app",
     "plugin:react/recommended"
   ],
-  "plugins": ["prettier", "react"],
+  "plugins": ["prettier", "jsx-a11y"],
   "env": {
     "browser": true,
     "commonjs": true,
