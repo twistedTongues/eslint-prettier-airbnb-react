@@ -132,18 +132,18 @@ else
 
   echo ${config_opening}'
   "extends": [
-    "airbnb",
-    "plugin:jsx-a11y/recommended",
-    "prettier",
+    "plugin:react/recommended",
+    // "react-app",
     // "plugin:node/recommended",
-    "react-app",
-    "plugin:react/recommended"
+    "airbnb",
+    "prettier",
+    "plugin:jsx-a11y/recommended"
   ],
   "plugins": ["prettier", "jsx-a11y", "react"],
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true,
+    "es2021": true,
     "jest": true,
     "node": true
   },
