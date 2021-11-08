@@ -169,7 +169,8 @@ else
     "no-unused-vars": "warn",
     "spaced-comment": "warn",
     ///
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".ts"] }],
+    "react/react-in-jsx-scope": "off",
     "max-len": [
       "warn",
       {
