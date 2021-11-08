@@ -132,12 +132,15 @@ else
 
   echo ${config_opening}'
   "extends": [
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
     "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     // "react-app",
     // "plugin:node/recommended",
     "airbnb",
-    "prettier",
-    "plugin:jsx-a11y/recommended"
+    "prettier"
   ],
   "plugins": ["prettier", "jsx-a11y", "react"],
   "env": {
