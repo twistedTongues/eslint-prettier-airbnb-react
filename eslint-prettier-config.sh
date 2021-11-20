@@ -137,7 +137,6 @@ else
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    // "plugin:node/recommended",
     "airbnb",
     "prettier"
   ],
@@ -165,8 +164,6 @@ else
     "jsx-a11y/href-no-hash": ["off"],
     "no-console": "off",
     "func-names": "off",
-    // Node
-    // "no-process-exit": "off",
     "object-shorthand": "warn",
     "class-methods-use-this": "off",
     "prettier/prettier": "error",
