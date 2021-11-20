@@ -114,7 +114,7 @@ $pkg_cmd -D eslint_d @fsouza/prettierd
 echo
 echo -e "2/5 ${YELLOW}Conforming to Airbnb's JavaScript Style Guide... ${NC}"
 echo
-$pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react babel-eslint eslint-plugin-node eslint-config-node eslint-plugin-react-hooks
+$pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react @babel/eslint-parser @babel/preset-react @babel/core eslint-plugin-node eslint-config-node eslint-plugin-react-hooks eslint-plugin-html
 
 echo
 echo -e "3/5 ${LCYAN}Making ESlint and Prettier play nice with each other... ${NC}"
@@ -137,12 +137,11 @@ else
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    // "react-app",
     // "plugin:node/recommended",
     "airbnb",
     "prettier"
   ],
-  "plugins": ["prettier", "jsx-a11y", "react"],
+  "plugins": ["prettier", "jsx-a11y", "react", "html", "react-hooks"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -150,28 +149,28 @@ else
     "jest": true,
     "node": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
      "ecmaFeatures": {
          "jsx": true
       },
       "ecmaVersion": 12,
-      "sourceType": "module"
+      "sourceType": "module",
+      "babelOptions": {
+        "presets": ["@babel/preset-react"]
+      }      
   },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
-    /// My rules
     "no-console": "off",
     "func-names": "off",
-    ///Node
-      // "no-process-exit": "off",
-    ///
+    // Node
+    // "no-process-exit": "off",
     "object-shorthand": "warn",
     "class-methods-use-this": "off",
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "spaced-comment": "warn",
-    ///
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".ts"] }],
     "react/react-in-jsx-scope": "off",
     "max-len": [
