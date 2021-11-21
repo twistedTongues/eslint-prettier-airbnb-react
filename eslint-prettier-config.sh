@@ -38,17 +38,16 @@ done
 echo
 
 # Checks for existing tsconfig file
-if [[ -o "tsconfig.json" ]]; then
+if [ "tsconfig.json" ]; then
   echo -e "${RED}Existing tsconfig file(s) found:${NC}"
   ls -a tsconfig* | xargs -n 1 basename
   echo
   echo
   echo
-  skip_tsconfig_setup="false"
   read -p  "Write tsconfig.json (Y/n)? "
   if [[ $REPLY =~ ^[Nn]$ ]]; then
     echo -e "${YELLOW}>>>>> Skipping tsconfig ${NC}"
-    skip_tsconfig_setup="true"
+    skip_tsconfig_setup=true
   fi
 fi
 finished=false
@@ -372,7 +371,7 @@ else
 }' >> .prettierrc${config_extension}
 fi
 
-if [ "$typescript_choice" == "Yes" && "skip_tsconfig_setup" == "false" ]; then
+if [ "$typescript_choice" == "Yes" && "skip_tsconfig_setup" != true ]; then
     echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
   > tsconfig.json # truncates existing file (or creates empty)
 
