@@ -169,7 +169,12 @@ else
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "spaced-comment": "warn",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".ts"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
+      },
+    ],
     "react/react-in-jsx-scope": "off",
     "max-len": [
       "warn",
