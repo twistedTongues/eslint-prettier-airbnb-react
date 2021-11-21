@@ -430,7 +430,7 @@ else
 fi
 
 echo
-echo -e "6/6 ${YELLOW}Adding ignore files${NC}"
+echo -e "${YELLOW}Adding ignore files${NC}"
 echo
 > .prettierignore
 "node_modules/" >> .prettierignore
