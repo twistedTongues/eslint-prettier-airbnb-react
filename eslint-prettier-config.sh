@@ -38,11 +38,9 @@ done
 echo
 
 # Checks for existing tsconfig file
-if [ "tsconfig.json" ]; then
+if [ -f "tsconfig.json" ]; then
   echo -e "${RED}Existing tsconfig file(s) found:${NC}"
   ls -a tsconfig* | xargs -n 1 basename
-  echo
-  echo
   echo
   read -p  "Write tsconfig.json (Y/n)? "
   if [[ $REPLY =~ ^[Nn]$ ]]; then
