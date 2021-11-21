@@ -38,7 +38,7 @@ done
 echo
 
 # Checks for existing tsconfig file
-if [[ -f "tsconfig.json" ]]; then
+if [[ -f -o "tsconfig.json" ]]; then
   echo -e "${RED}Existing tsconfig file(s) found:${NC}"
   ls -a tsconfig* | xargs -n 1 basename
   echo
