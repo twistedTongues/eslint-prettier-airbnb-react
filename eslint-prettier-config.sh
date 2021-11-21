@@ -37,6 +37,20 @@ select typescript_choice in "Yes" "No" "Cancel"; do
 done
 echo
 
+# Checks for existing tsconfig file
+if [ -o -f "tsconfig.json" ]; then
+  echo -e "${RED}Existing tsconfig file(s) found:${NC}"
+  ls -a tsconfig* | xargs -n 1 basename
+  echo
+  read -p  "Write tsconfig.json (Y/n)? "
+  skip_tsconfig_setup="false"
+  if [[ $REPLY =~ ^[Nn]$ ]]; then
+    echo -e "${YELLOW}>>>>> Skipping tsconfig ${NC}"
+    skip_tsconfig_setup="true"
+  fi
+fi
+finished=false
+
 # File Format Prompt
 echo "Which ESLint and Prettier configuration format do you prefer?"
 select config_extension in ".js" ".json" "Cancel"; do
@@ -119,12 +133,12 @@ echo
 echo -e "${GREEN}Configuring your development environment... ${NC}"
 
 echo
-echo -e "1/5 ${LCYAN}ESLint & Prettier Installation... ${NC}"
+echo -e "1/6 ${LCYAN}ESLint & Prettier Installation... ${NC}"
 echo
 $pkg_cmd -D eslint_d @fsouza/prettierd
 
 echo
-echo -e "2/5 ${YELLOW}Conforming to Airbnb's JavaScript Style Guide... ${NC}"
+echo -e "2/6 ${YELLOW}Conforming to Airbnb's JavaScript Style Guide... ${NC}"
 echo
 if [ "$typescript_choice" == "Yes" ]; then
   $pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react @babel/eslint-parser @babel/preset-react @babel/core eslint-plugin-react-hooks eslint-plugin-html @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-airbnb-typescript
@@ -133,7 +147,7 @@ else
 fi
 
 echo
-echo -e "3/5 ${LCYAN}Making ESlint and Prettier play nice with each other... ${NC}"
+echo -e "3/6 ${LCYAN}Making ESlint and Prettier play nice with each other... ${NC}"
 echo "See https://github.com/prettier/eslint-config-prettier for more details."
 echo
 $pkg_cmd -D eslint-config-prettier eslint-plugin-prettier
@@ -143,7 +157,7 @@ if [ "$typescript_choice" == "Yes" ]; then
     break
   else
     echo
-    echo -e "4/5 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
+    echo -e "4/6 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
     > ".eslintrc${config_extension}" # truncates existing file (or creates empty)
 
     echo ${config_opening}'
@@ -254,7 +268,7 @@ else
     break
   else
     echo
-    echo -e "4/5 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
+    echo -e "4/6 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
     > ".eslintrc${config_extension}" # truncates existing file (or creates empty)
 
     echo ${config_opening}'
@@ -345,7 +359,7 @@ fi
 if [ "$skip_prettier_setup" == "true" ]; then
   break
 else
-  echo -e "5/5 ${YELLOW}Building your .prettierrc${config_extension} file... ${NC}"
+  echo -e "5/6 ${YELLOW}Building your .prettierrc${config_extension} file... ${NC}"
   > .prettierrc${config_extension} # truncates existing file (or creates empty)
 
   echo ${config_opening}'
@@ -354,6 +368,48 @@ else
   "trailingComma": "'${trailing_comma_pref}'",
   "arrowParens": "'${arrow_func_par}'"
 }' >> .prettierrc${config_extension}
+fi
+
+if [ "$typescript_choice" == "Yes" && "skip_tsconfig_setup" == "false" ]; then
+    echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
+  > tsconfig.json # truncates existing file (or creates empty)
+
+  echo {'
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "es2017",
+    "lib": ["es6", "dom", "esnext.asynciterable", "es2017"],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
+  ]
+}' >> tsconfig.json
+else
+  break
 fi
 
 echo
