@@ -157,7 +157,7 @@ $pkg_cmd -D eslint-config-prettier eslint-plugin-prettier
 
 if [ "$typescript_choice" == "Yes" ]; then
   if [ "$skip_eslint_setup" == "true" ]; then
-    echo -e skipping eslint setup
+    echo
   else
     echo
     echo -e "4/6 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
@@ -374,7 +374,7 @@ fi
 
 
 if [ "$skip_prettier_setup" == "true" ]; then
-  echo -e skipping prettier setup
+  echo
 else
   echo -e "5/6 ${YELLOW}Building your .prettierrc${config_extension} file... ${NC}"
   > .prettierrc${config_extension} # truncates existing file (or creates empty)
@@ -388,7 +388,7 @@ else
 fi
 
 if [ "$skip_tsconfig_setup" == "true" ]; then
-  echo -e skipping tsconfig
+  echo
 else
   echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
   > tsconfig.json # truncates existing file (or creates empty)
