@@ -430,5 +430,13 @@ else
 fi
 
 echo
+echo -e "Adding ignore files... ${NC}"
+echo
+> .prettierignore
+node_modules/
+> .eslintignore
+node_modules/
+
+echo
 echo -e "${GREEN}Finished setting up!${NC}"
 echo
