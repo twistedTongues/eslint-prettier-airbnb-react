@@ -25,6 +25,18 @@ select package_command_choices in "Yarn" "npm" "Cancel"; do
 done
 echo
 
+# Adding Typescript
+echo
+echo "Do you want to use Typescript in your project?"
+select typescript_choice in "Yes" "No" "Cancel"; do
+  case $typescript_choice in
+    Yes ) break;;
+    No ) break;;
+    Cancel ) exit;;
+  esac
+done
+echo
+
 # File Format Prompt
 echo "Which ESLint and Prettier configuration format do you prefer?"
 select config_extension in ".js" ".json" "Cancel"; do
@@ -114,7 +126,11 @@ $pkg_cmd -D eslint_d @fsouza/prettierd
 echo
 echo -e "2/5 ${YELLOW}Conforming to Airbnb's JavaScript Style Guide... ${NC}"
 echo
-$pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react @babel/eslint-parser @babel/preset-react @babel/core eslint-plugin-react-hooks eslint-plugin-html
+if [ "$typescript_choice" == "Yes" ]; then
+  $pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react @babel/eslint-parser @babel/preset-react @babel/core eslint-plugin-react-hooks eslint-plugin-html @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-airbnb-typescript
+else
+  $pkg_cmd -D eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react @babel/eslint-parser @babel/preset-react @babel/core eslint-plugin-react-hooks eslint-plugin-html
+fi
 
 echo
 echo -e "3/5 ${LCYAN}Making ESlint and Prettier play nice with each other... ${NC}"
@@ -122,87 +138,209 @@ echo "See https://github.com/prettier/eslint-config-prettier for more details."
 echo
 $pkg_cmd -D eslint-config-prettier eslint-plugin-prettier
 
+if [ "$typescript_choice" == "Yes" ]; then
+  if [ "$skip_eslint_setup" == "true" ]; then
+    break
+  else
+    echo
+    echo -e "4/5 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
+    > ".eslintrc${config_extension}" # truncates existing file (or creates empty)
 
-if [ "$skip_eslint_setup" == "true" ]; then
-  break
-else
-  echo
-  echo -e "4/5 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
-  > ".eslintrc${config_extension}" # truncates existing file (or creates empty)
-
-  echo ${config_opening}'
-  "extends": [
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "airbnb",
-    "prettier"
+    echo ${config_opening}'
+  globals: {
+    React: true,
+    JSX: true,
+  },
+  extends: [
+    'plugin:@typescript-eslint/recommended', // Uses rules from `@typescript-eslint/eslint-plugin`,
+    'airbnb-typescript',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    // Layer in all the JS Rules
+    '{    
+        "extends": [
+          "plugin:react-hooks/recommended",
+          "plugin:jsx-a11y/recommended",
+          "plugin:react/recommended",
+          "plugin:import/errors",
+          "plugin:import/warnings",
+          "airbnb",
+          "prettier"
+        ],
+        "plugins": ["prettier", "jsx-a11y", "react", "html", "react-hooks"],
+        "env": {
+          "browser": true,
+          "commonjs": true,
+          "es2021": true,
+          "jest": true,
+          "node": true
+        },
+        "parser": "@babel/eslint-parser",
+        "parserOptions": {
+           "ecmaFeatures": {
+               "jsx": true
+            },
+            "ecmaVersion": 12,
+            "sourceType": "module",
+            "requireConfigFile": false,      
+            "babelOptions": {
+              "presets": ["@babel/preset-react"]
+            }      
+        },
+        "rules": {
+          "no-console": "off",
+          "func-names": "off",
+          "object-shorthand": "warn",
+          "class-methods-use-this": "off",
+          "prettier/prettier": "error",
+          "no-unused-vars": "warn",
+          "spaced-comment": "warn",
+          "react/jsx-filename-extension": [
+            "error",
+            {
+              "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"],
+            },
+          ],
+          "react-hooks/rules-of-hooks": "error",
+          "react-hooks/exhaustive-deps": "warn",
+          "@typescript-eslint/comma-dangle": ["off"],
+          "react/jsx-props-no-spreading": "warn",    
+          "react/react-in-jsx-scope": "warn",
+          "jsx-a11y/href-no-hash": "off",
+          "jsx-a11y/anchor-is-valid": [
+            "warn",
+            {
+              "aspects": ["invalidHref"],
+            },
+          ],    
+          "max-len": [
+            "warn",
+            {
+              "code": '${max_len_val}',
+              "tabWidth": 2,
+              "comments": '${max_len_val}',
+              "ignoreComments": false,
+              "ignoreTrailingComments": true,
+              "ignoreUrls": true,
+              "ignoreStrings": true,
+              "ignoreTemplateLiterals": true,
+              "ignoreRegExpLiterals": true
+            }
+          ]
+        }
+     }',
   ],
-  "plugins": ["prettier", "jsx-a11y", "react", "html", "react-hooks"],
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es2021": true,
-    "jest": true,
-    "node": true
-  },
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-     "ecmaFeatures": {
-         "jsx": true
-      },
-      "ecmaVersion": 12,
-      "sourceType": "module",
-      "requireConfigFile": false,      
-      "babelOptions": {
-        "presets": ["@babel/preset-react"]
-      }      
-  },
-  "rules": {
-    "no-console": "off",
-    "func-names": "off",
-    "object-shorthand": "warn",
-    "class-methods-use-this": "off",
-    "prettier/prettier": "error",
-    "no-unused-vars": "warn",
-    "spaced-comment": "warn",
-    "react/jsx-filename-extension": [
-      "error",
+  // then add some extra good stuff for Typescript
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  // Then we add our own custom typescript rules
+  rules: {
+    // This allows us to use async function on addEventListener(). Discussion: https://twitter.com/wesbos/status/1337074242161172486
+    '@typescript-eslint/no-misused-promises': [
+      'error',
       {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"],
+        checksVoidReturn: false,
       },
     ],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "@typescript-eslint/comma-dangle": ["off"],
-    "react/jsx-props-no-spreading": "warn",    
-    "react/react-in-jsx-scope": "warn",
-    "jsx-a11y/href-no-hash": "off",
-    "jsx-a11y/anchor-is-valid": [
-      "warn",
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-redeclare': 'off',
+    '@typescript-eslint/no-redeclare': [
+      'warn',
       {
-        "aspects": ["invalidHref"],
+        ignoreDeclarationMerge: true,
       },
-    ],    
-    "max-len": [
-      "warn",
-      {
-        "code": '${max_len_val}',
-        "tabWidth": 2,
-        "comments": '${max_len_val}',
-        "ignoreComments": false,
-        "ignoreTrailingComments": true,
-        "ignoreUrls": true,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
-      }
-    ]
+    ],
+    '@typescript-eslint/no-floating-promises': 'off',
+  },
+  parserOptions: {
+    project: './tsconfig.json',
   }
-}' >> .eslintrc${config_extension}
+  }' >> .eslintrc${config_extension}
+  fi
+else
+  if [ "$skip_eslint_setup" == "true" ]; then
+    break
+  else
+    echo
+    echo -e "4/5 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
+    > ".eslintrc${config_extension}" # truncates existing file (or creates empty)
+
+    echo ${config_opening}'
+    "extends": [
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "airbnb",
+      "prettier"
+    ],
+    "plugins": ["prettier", "jsx-a11y", "react", "html", "react-hooks"],
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es2021": true,
+      "jest": true,
+      "node": true
+    },
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+       "ecmaFeatures": {
+           "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "requireConfigFile": false,      
+        "babelOptions": {
+          "presets": ["@babel/preset-react"]
+        }      
+    },
+    "rules": {
+      "no-console": "off",
+      "func-names": "off",
+      "object-shorthand": "warn",
+      "class-methods-use-this": "off",
+      "prettier/prettier": "error",
+      "no-unused-vars": "warn",
+      "spaced-comment": "warn",
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"],
+        },
+      ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/comma-dangle": ["off"],
+      "react/jsx-props-no-spreading": "warn",    
+      "react/react-in-jsx-scope": "warn",
+      "jsx-a11y/href-no-hash": "off",
+      "jsx-a11y/anchor-is-valid": [
+        "warn",
+        {
+          "aspects": ["invalidHref"],
+        },
+      ],    
+      "max-len": [
+        "warn",
+        {
+          "code": '${max_len_val}',
+          "tabWidth": 2,
+          "comments": '${max_len_val}',
+          "ignoreComments": false,
+          "ignoreTrailingComments": true,
+          "ignoreUrls": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreRegExpLiterals": true
+        }
+      ]
+    }
+  }' >> .eslintrc${config_extension}
+  fi
 fi
+
+
 
 
 if [ "$skip_prettier_setup" == "true" ]; then
