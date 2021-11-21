@@ -433,9 +433,9 @@ echo
 echo -e "6/6 ${YELLOW}Adding ignore files${NC}"
 echo
 > .prettierignore
-'node_modules/' >> .prettierignore
+"node_modules/" >> .prettierignore
 > .eslintignore
-'node_modules/' >> .eslintignore
+"node_modules/" >> .eslintignore
 
 echo
 echo -e "${GREEN}Finished setting up!${NC}"
