@@ -38,17 +38,21 @@ done
 echo
 
 # Checks for existing tsconfig file
-if [ -f "tsconfig.json" ]; then
-  echo -e "${RED}Existing tsconfig file(s) found:${NC}"
-  ls -a tsconfig.json | xargs -n 1 basename
-  echo
-  read -p  "Write tsconfig.json (Y/n)? "
-  if [[ $REPLY =~ ^[Nn]$ ]]; then
-    echo -e "${YELLOW}>>>>> Skipping tsconfig ${NC}"
-    skip_tsconfig_setup=true
+if [ "$typescript_choice" == "Yes" ]; then
+  if [ -f "tsconfig.json" ]; then
+    echo -e "${RED}Existing tsconfig file(s) found:${NC}"
+    ls -a tsconfig.json | xargs -n 1 basename
+    echo
+    read -p  "Write tsconfig.json (Y/n)? "
+    if [[ $REPLY =~ ^[Nn]$ ]]; then
+      echo -e "${YELLOW}>>>>> Skipping tsconfig ${NC}"
+      skip_tsconfig_setup="true"
+    fi
   fi
+  finished=false
+else
+  break
 fi
-finished=false
 
 # File Format Prompt
 echo "Which ESLint and Prettier configuration format do you prefer?"
@@ -369,7 +373,9 @@ else
 }' >> .prettierrc${config_extension}
 fi
 
-if [ "$typescript_choice" == "Yes" ]; then
+if [ "$skip_tsconfig_setup" == "true" ]; then
+  break
+else
   echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
   > tsconfig.json # truncates existing file (or creates empty)
 
@@ -407,8 +413,6 @@ if [ "$typescript_choice" == "Yes" ]; then
     "src/setupTests.ts"
   ]
 }' >> tsconfig.json
-else
-  break
 fi
 
 echo
