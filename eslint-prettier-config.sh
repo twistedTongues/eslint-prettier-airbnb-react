@@ -139,7 +139,109 @@ echo
 $pkg_cmd -D eslint-config-prettier eslint-plugin-prettier
 
 if [ "$typescript_choice" == "Yes" ]; then
+  if [ "$skip_eslint_setup" == "true" ]; then
     break
+  else
+    echo
+    echo -e "4/5 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
+    > ".eslintrc${config_extension}" # truncates existing file (or creates empty)
+
+    echo ${config_opening}'
+    "extends": [
+      "plugin:@typescript-eslint/recommended',
+      "airbnb-typescript",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:react/recommended",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "airbnb",
+      "prettier"
+    ],
+    "plugins": ["@typescript-eslint", "prettier", "jsx-a11y", "react", "html", "react-hooks"],
+    "globals": {
+      "React": true,
+      "JSX": true,
+    },    
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es2021": true,
+      "jest": true,
+      "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+       "project": "./tsconfig.json",
+       "ecmaFeatures": {
+           "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "requireConfigFile": false,      
+        "babelOptions": {
+          "presets": ["@babel/preset-react"]
+        }      
+    },
+    "rules": {
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          "checksVoidReturn": false,
+        },
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
+      "no-redeclare": "off",
+      "@typescript-eslint/no-redeclare": [
+        "warn",
+        {
+          "ignoreDeclarationMerge": true,
+        },
+      ],
+      "@typescript-eslint/no-floating-promises": "off",
+      "no-console": "off",
+      "func-names": "off",
+      "object-shorthand": "warn",
+      "class-methods-use-this": "off",
+      "prettier/prettier": "error",
+      "no-unused-vars": "warn",
+      "spaced-comment": "warn",
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"]
+        }
+      ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/comma-dangle": ["off"],
+      "react/jsx-props-no-spreading": "warn",    
+      "react/react-in-jsx-scope": "warn",
+      "jsx-a11y/href-no-hash": "off",
+      "jsx-a11y/anchor-is-valid": [
+        "warn",
+        {
+          "aspects": ["invalidHref"]
+        }
+      ],    
+      "max-len": [
+        "warn",
+        {
+          "code": '${max_len_val}',
+          "tabWidth": 2,
+          "comments": '${max_len_val}',
+          "ignoreComments": false,
+          "ignoreTrailingComments": true,
+          "ignoreUrls": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreRegExpLiterals": true
+        }
+      ]
+    }
+  }' >> .eslintrc${config_extension}
+  fi
 else
   if [ "$skip_eslint_setup" == "true" ]; then
     break
