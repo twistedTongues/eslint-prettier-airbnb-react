@@ -369,8 +369,8 @@ else
 }' >> .prettierrc${config_extension}
 fi
 
-if [ "$typescript_choice" == "Yes" && "skip_tsconfig_setup" != true ]; then
-    echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
+if [ "$typescript_choice" == "Yes" && "skip_tsconfig_setup" != "true" ]; then
+  echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
   > tsconfig.json # truncates existing file (or creates empty)
 
   echo {'
