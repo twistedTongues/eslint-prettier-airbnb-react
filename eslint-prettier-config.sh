@@ -432,10 +432,10 @@ fi
 echo
 echo -e "Adding ignore files... ${NC}"
 echo
-echo > .prettierignore
-echo 'node_modules/' > .prettierignore
-echo > .eslintignore
-echo 'node_modules/' > .eslintignore
+> .prettierignore
+echo 'node_modules/' >> .prettierignore
+> .eslintignore
+echo 'node_modules/' >> .eslintignore
 
 echo
 echo -e "${GREEN}Finished setting up!${NC}"
