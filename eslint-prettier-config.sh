@@ -228,7 +228,7 @@ if [ "$typescript_choice" == "Yes" ]; then
             }
           ]
         }
-     }',
+     }'
   ],
   // then add some extra good stuff for Typescript
   parser: '@typescript-eslint/parser',
