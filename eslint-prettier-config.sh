@@ -217,7 +217,6 @@ if [ "$typescript_choice" == "Yes" ]; then
         }
       ],
       "@typescript-eslint/no-floating-promises": "warn",
-      "@typescript-eslint/comma-dangle": ["off"],
       "no-shadow": [
         "off",
         {
@@ -226,6 +225,7 @@ if [ "$typescript_choice" == "Yes" ]; then
         }
       ],
       "@typescript-eslint/no-shadow": ["warn"],
+      "@typescript-eslint/comma-dangle": ["off"],      
       "no-console": "off",
       "no-debugger": "off",
       "no-alert": "off",
