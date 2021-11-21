@@ -162,7 +162,7 @@ if [ "$typescript_choice" == "Yes" ]; then
     "plugins": ["@typescript-eslint", "prettier", "jsx-a11y", "react", "html", "react-hooks"],
     "globals": {
       "React": true,
-      "JSX": true,
+      "JSX": true
     },    
     "env": {
       "browser": true,
@@ -188,16 +188,16 @@ if [ "$typescript_choice" == "Yes" ]; then
       "@typescript-eslint/no-misused-promises": [
         "error",
         {
-          "checksVoidReturn": false,
-        },
+          "checksVoidReturn": false
+        }
       ],
       "@typescript-eslint/no-explicit-any": "off",
       "no-redeclare": "off",
       "@typescript-eslint/no-redeclare": [
         "warn",
         {
-          "ignoreDeclarationMerge": true,
-        },
+          "ignoreDeclarationMerge": true
+        }
       ],
       "@typescript-eslint/no-floating-promises": "off",
       "no-console": "off",
