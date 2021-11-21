@@ -42,8 +42,10 @@ if [ -o -f "tsconfig.json" ]; then
   echo -e "${RED}Existing tsconfig file(s) found:${NC}"
   ls -a tsconfig* | xargs -n 1 basename
   echo
-  read -p  "Write tsconfig.json (Y/n)? "
+  echo
+  echo
   skip_tsconfig_setup="false"
+  read -p  "Write tsconfig.json (Y/n)? "
   if [[ $REPLY =~ ^[Nn]$ ]]; then
     echo -e "${YELLOW}>>>>> Skipping tsconfig ${NC}"
     skip_tsconfig_setup="true"
