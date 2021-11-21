@@ -157,7 +157,7 @@ $pkg_cmd -D eslint-config-prettier eslint-plugin-prettier
 
 if [ "$typescript_choice" == "Yes" ]; then
   if [ "$skip_eslint_setup" == "true" ]; then
-    break
+#     break
   else
     echo
     echo -e "4/6 ${YELLOW}Building your .eslintrc${config_extension} file...${NC}"
@@ -374,7 +374,7 @@ fi
 
 
 if [ "$skip_prettier_setup" == "true" ]; then
-  break
+#   break
 else
   echo -e "5/6 ${YELLOW}Building your .prettierrc${config_extension} file... ${NC}"
   > .prettierrc${config_extension} # truncates existing file (or creates empty)
@@ -388,7 +388,7 @@ else
 fi
 
 if [ "$skip_tsconfig_setup" == "true" ]; then
-  break
+#   break
 else
   echo -e "6/6 ${YELLOW}Building your tsconfig.json file... ${NC}"
   > tsconfig.json # truncates existing file (or creates empty)
@@ -428,6 +428,14 @@ else
   ]
 }' >> tsconfig.json
 fi
+
+echo
+echo -e "6/6 ${YELLOW}Adding ignore files${NC}"
+echo
+> .prettierignore
+'node_modules/' >> .prettierignore
+> .eslintignore
+'node_modules/' >> .eslintignore
 
 echo
 echo -e "${GREEN}Finished setting up!${NC}"
