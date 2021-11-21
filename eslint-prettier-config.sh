@@ -148,7 +148,7 @@ if [ "$typescript_choice" == "Yes" ]; then
 
     echo ${config_opening}'
     "extends": [
-      "plugin:@typescript-eslint/recommended',
+      "plugin:@typescript-eslint/recommended",
       "airbnb-typescript",
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
       "plugin:react-hooks/recommended",
