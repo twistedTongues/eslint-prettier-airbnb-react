@@ -161,7 +161,6 @@ else
       }      
   },
   "rules": {
-    "jsx-a11y/href-no-hash": ["off"],
     "no-console": "off",
     "func-names": "off",
     "object-shorthand": "warn",
@@ -170,12 +169,23 @@ else
     "no-unused-vars": "warn",
     "spaced-comment": "warn",
     "react/jsx-filename-extension": [
-      1,
+      "error",
       {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.mdx'],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"],
       },
     ],
-    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/comma-dangle": ["off"],
+    "react/jsx-props-no-spreading": "warn",    
+    "react/react-in-jsx-scope": "warn",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "warn",
+      {
+        "aspects": ["invalidHref"],
+      },
+    ],    
     "max-len": [
       "warn",
       {
