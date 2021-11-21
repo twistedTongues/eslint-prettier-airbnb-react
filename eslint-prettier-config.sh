@@ -189,8 +189,8 @@ else
       "react/jsx-filename-extension": [
         "error",
         {
-          "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"],
-        },
+          "extensions": [".js", ".jsx", ".ts", ".tsx", ".mdx"]
+        }
       ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
@@ -201,8 +201,8 @@ else
       "jsx-a11y/anchor-is-valid": [
         "warn",
         {
-          "aspects": ["invalidHref"],
-        },
+          "aspects": ["invalidHref"]
+        }
       ],    
       "max-len": [
         "warn",
