@@ -224,7 +224,14 @@ if [ "$typescript_choice" == "Yes" ]; then
         {
           "aspects": ["invalidHref"]
         }
-      ],    
+      ],
+      "no-shadow": [
+        "off",
+        {
+          "hoist": "all",
+          "allow": ["resolve", "reject", "done", "next", "err", "error"]
+        }
+      ],           
       "max-len": [
         "warn",
         {
@@ -307,7 +314,7 @@ else
         }
       ],
       "no-shadow": [
-        "error",
+        "off",
         {
           "hoist": "all",
           "allow": ["resolve", "reject", "done", "next", "err", "error"]
