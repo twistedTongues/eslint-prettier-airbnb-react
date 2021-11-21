@@ -208,7 +208,7 @@ if [ "$typescript_choice" == "Yes" ]; then
           "checksVoidReturn": false
         }
       ],
-      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
       "no-redeclare": "off",
       "@typescript-eslint/no-redeclare": [
         "warn",
@@ -216,8 +216,21 @@ if [ "$typescript_choice" == "Yes" ]; then
           "ignoreDeclarationMerge": true
         }
       ],
-      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-floating-promises": "warn",
+      "@typescript-eslint/comma-dangle": ["off"],
+      "no-shadow": [
+        "off",
+        {
+          "hoist": "all",
+          "allow": ["resolve", "reject", "done", "next", "err", "error"]
+        }
+      ],
+      "@typescript-eslint/no-shadow": ["warn"],
       "no-console": "off",
+      "no-debugger": "off",
+      "no-alert": "off",
+      "import/extensions": "off",
+      "import/prefer-default-export": "off",
       "func-names": "off",
       "object-shorthand": "warn",
       "class-methods-use-this": "off",
@@ -232,7 +245,6 @@ if [ "$typescript_choice" == "Yes" ]; then
       ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "@typescript-eslint/comma-dangle": ["off"],
       "react/jsx-props-no-spreading": "warn",    
       "react/react-in-jsx-scope": "warn",
       "jsx-a11y/href-no-hash": "off",
@@ -241,14 +253,7 @@ if [ "$typescript_choice" == "Yes" ]; then
         {
           "aspects": ["invalidHref"]
         }
-      ],
-      "no-shadow": [
-        "off",
-        {
-          "hoist": "all",
-          "allow": ["resolve", "reject", "done", "next", "err", "error"]
-        }
-      ],           
+      ],      
       "max-len": [
         "warn",
         {
@@ -305,7 +310,12 @@ else
         }      
     },
     "rules": {
+      "@typescript-eslint/comma-dangle": ["off"],    
       "no-console": "off",
+      "no-debugger": "off",
+      "no-alert": "off",
+      "import/extensions": "off",
+      "import/prefer-default-export": "off",
       "func-names": "off",
       "object-shorthand": "warn",
       "class-methods-use-this": "off",
@@ -320,7 +330,6 @@ else
       ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "@typescript-eslint/comma-dangle": ["off"],
       "react/jsx-props-no-spreading": "warn",    
       "react/react-in-jsx-scope": "warn",
       "jsx-a11y/href-no-hash": "off",
