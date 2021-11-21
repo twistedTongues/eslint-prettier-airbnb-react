@@ -201,6 +201,7 @@ if [ "$typescript_choice" == "Yes" ]; then
           "presets": ["@babel/preset-react"]
         }      
     },
+    
     "rules": {
       "@typescript-eslint/no-misused-promises": [
         "error",
@@ -311,6 +312,7 @@ else
           "presets": ["@babel/preset-react"]
         }      
     },
+    
     "rules": {
       "@typescript-eslint/comma-dangle": ["off"],    
       "no-console": "off",
