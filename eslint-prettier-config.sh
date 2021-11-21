@@ -226,7 +226,8 @@ if [ "$typescript_choice" == "Yes" ]; then
         }
       ],
       "@typescript-eslint/no-shadow": ["warn"],
-      "@typescript-eslint/comma-dangle": ["off"],
+      "comma-dangle": "off",
+      "@typescript-eslint/comma-dangle": ["error"],
       "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": ["error"],  
       "no-console": "off",
