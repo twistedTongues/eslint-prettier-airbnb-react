@@ -305,7 +305,14 @@ else
         {
           "aspects": ["invalidHref"]
         }
-      ],    
+      ],
+      "no-shadow": [
+        "error",
+        {
+          "hoist": "all",
+          "allow": ["resolve", "reject", "done", "next", "err", "error"]
+        }
+      ],     
       "max-len": [
         "warn",
         {
