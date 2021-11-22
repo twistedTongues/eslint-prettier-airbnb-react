@@ -425,7 +425,8 @@ else
     "webpack",
     "jest",
     "src/setupTests.ts"
-  ]
+  ],
+  "include": ["./src"]  
 }' >> tsconfig.json
 fi
 
