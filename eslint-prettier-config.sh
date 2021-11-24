@@ -228,6 +228,8 @@ if [ "$typescript_choice" == "Yes" ]; then
       "@typescript-eslint/no-shadow": ["warn"],
       "comma-dangle": "off",
       "@typescript-eslint/comma-dangle": ["off"],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn"],
       "no-use-before-define": "off",
       "@typescript-eslint/no-use-before-define": ["error"],  
       "no-console": "off",
@@ -239,7 +241,6 @@ if [ "$typescript_choice" == "Yes" ]; then
       "object-shorthand": "warn",
       "class-methods-use-this": "off",
       "prettier/prettier": "error",
-      "no-unused-vars": "warn",
       "spaced-comment": "warn",
       "react/jsx-filename-extension": [
         "error",
